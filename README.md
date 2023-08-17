@@ -7,24 +7,27 @@ An agent with forwards SSH Agent Auth requests from an WSL2 instance to the PuTT
 ## Requierments
 - An Folder **C:\Users\<MyProfile>\.ssh** (replace <MyProfile> with your Profilename)
 - Use the latest Version of [PuTTY CAC](https://github.com/NoMoreFood/putty-cac/releases)
-- For **PageantRelayNamedPipe**, the PuTTY Agent must be started with the **--openssh-config C:\Users\%UserName%\.ssh\pageant.conf** (Path is hardcoded, replace <UserName> with your User/Profilename)
-- For **PageantRelaySocket**, the PuTTY Agent must be started with the **--unix C:\Users\%UserName%\.ssh\agent.sock** (Path is hardcoded, replace <UserName> with your User/Profilename)
-- Copy the **PageantRelayNamedPipe.exe** or **PageantRelaySocket.exe** to **C:\Users\%UserName%\.ssh\**
+- For **PageantRelayNamedPipe**, the PuTTY Agent must be started with the **--openssh-config C:\\Users\\%UserName%\\.ssh\\pageant.conf** (Path is hardcoded, replace %UserName% with your User/Profilename)
+- For **PageantRelaySocket**, the PuTTY Agent must be started with the **--unix C:\\Users\\%UserName%\\.ssh\\agent.sock** (Path is hardcoded, replace %UserName% with your User/Profilename)
+- Copy the **PageantRelayNamedPipe.exe** or **PageantRelaySocket.exe** to **C:\\Users\\%UserName%\\.ssh\\**
 - Start the Putty Agent and load keys
 
 - ## Usage Putty Agent NamedPipe
 Start your WSL instance (Here also: replace <User> with your User/Profilename). In this example socat is starting in foreground. Test it and if the test succeeds append a & at the of the command line and it move to background.
+
     wsl -d Debian
     export SSH_AUTH_SOCK="/home/$USER/.ssh/agent.sock"
     socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"/mnt/c/Users/$USER/.ssh/PageantRelayNamedPipe.exe"
 
 ## Usage Putty Agent socket
 Start your WSL instance (Here also: replace <User> with your Profilename). Example
+
     wsl -d Debian
     export SSH_AUTH_SOCK="/home/$USER/.ssh/agent.sock"
     socat UNIX-LISTEN:"$SSH_AUTH_SOCK,fork" EXEC:"/mnt/c/Users/$USER/.ssh/PageantRelaySocket.exe"
 
 ## Then connect to your host
+
     export SSH_AUTH_SOCK="/home/$USER/.ssh/agent.sock"
     ssh michael@debdev.myDomain.local
 
