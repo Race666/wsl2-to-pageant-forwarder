@@ -2,8 +2,8 @@
 An agent with forwards SSH Agent Auth requests from an WSL2 instance to the PuTTY authentification agent
 
 ## There are two forwarders in this project
-- PageantRelayNamedPipe -> Connects to the PuTTY Agat via a named pipe
-- PageantRelaySocket ->  Connects to the PuTTY Agat via a socket
+- PageantRelayNamedPipe -> Connects to the PuTTY Authentification Agent via a named pipe
+- PageantRelaySocket ->  Connects to the PuTTY Authentification Agent via a UNIX socket
 ## Requierments
 - An Folder **C:\Users\<MyProfile>\.ssh** (replace <MyProfile> with your Profilename)
 - Use the latest Version of [PuTTY CAC](https://github.com/NoMoreFood/putty-cac/releases)
