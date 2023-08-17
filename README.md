@@ -9,7 +9,7 @@ An agent with forwards SSH Agent Auth requests from an WSL2 instance to the PuTT
 - Use the latest Version of [PuTTY CAC](https://github.com/NoMoreFood/putty-cac/releases)
 - For **PageantRelayNamedPipe**, the PuTTY Agent must be started with the **--openssh-config C:\\Users\\%UserName%\\.ssh\\pageant.conf** (Path is hardcoded, replace %UserName% with your User/Profilename)
 - For **PageantRelaySocket**, the PuTTY Agent must be started with the **--unix C:\\Users\\%UserName%\\.ssh\\agent.sock** (Path is hardcoded, replace %UserName% with your User/Profilename)
-- Copy the **PageantRelayNamedPipe.exe** or **PageantRelaySocket.exe** to **C:\\Users\\%UserName%\\.ssh\\**
+- Copy the [**PageantRelayNamedPipe.exe**](https://github.com/Race666/wsl2-to-pageant-forwarder/releases/tag/PageantRelayNamedPipe) or extract [**PageantRelaySocket.7z**](https://github.com/Race666/wsl2-to-pageant-forwarder/releases/tag/PageantRelaySocket) to **C:\\Users\\%UserName%\\.ssh\\**
 - Start the Putty Agent and load keys
 
 - ## Usage Putty Agent NamedPipe
