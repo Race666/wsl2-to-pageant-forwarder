@@ -64,6 +64,12 @@ namespace PageantRelayNamedPipe
                 Console.Error.WriteLine($"\r\n\r\nCannot find named pipe name in file {sPuttyAgentOpenSSHConfigFileFullpath}");
                 Environment.Exit(2);
             }
+            string[] aNamedPipes=System.IO.Directory.GetFiles(@"\\.\pipe\");
+            if(!aNamedPipes.Contains($@"\\.\pipe\{sAgentNamedPipe}"))
+            {
+                Console.Error.WriteLine($"Named pipe {sAgentNamedPipe} not found! Possible reasons\r\n  PuTTY Agent is not started\r\n  PuTTY Agent is not configured to provide a named pipe. Parameter --openssh-config");
+                Environment.Exit(2);
+            }
             using (NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", sAgentNamedPipe, PipeDirection.InOut, System.IO.Pipes.PipeOptions.WriteThrough))
             {
                 Stream inputStream = Console.OpenStandardInput();
