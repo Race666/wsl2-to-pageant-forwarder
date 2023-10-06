@@ -48,14 +48,24 @@ namespace PageantRelayNamedPipe
             using (StreamReader OpenSSHConfFile = new StreamReader(sPuttyAgentOpenSSHConfigFileFullpath))
             {
                 string Line = "";
-                Regex RegPipe = new Regex(@"IdentityAgent \\\\\.\\pipe\\(.+)");
+                Regex RegPipe = new Regex(@"(IdentityAgent \\\\\.\\pipe\\(.+))|(IdentityAgent ""//\./pipe/(.+))""");
                 while ((Line = OpenSSHConfFile.ReadLine()) != null)
                 {
                     Match RegMatch = RegPipe.Match(Line);
                     if (RegMatch.Success)
                     {
-                        sAgentNamedPipe = RegMatch.Groups[1].Value;
-                        break;
+                        // putty agent <= 0.78u1
+                        if (RegMatch.Groups[2].Success)
+                        {
+                            sAgentNamedPipe = RegMatch.Groups[2].Value;
+                            break;
+                        }
+                        // putty agent >= 0.79
+                        else if (RegMatch.Groups[4].Success)
+                        {
+                            sAgentNamedPipe = RegMatch.Groups[4].Value;
+                            break;
+                        }
                     }
                 }
             }
